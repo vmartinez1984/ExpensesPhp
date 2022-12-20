@@ -1,1 +1,1 @@
-# App de gastos en oho y MySql
+# App de gastos en php y MySql

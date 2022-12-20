@@ -2,6 +2,8 @@
 //print_r($_GET);
 include('../config/connection.php');
 include('../templates/header.php');
+include_once '../models/subcategory.php';
+
 $result = $mysqli->query("SELECT * FROM Period WHERE Id = {$_GET['id']} LIMIT 1");
 $row = $result->fetch_assoc();
 print_r($row);
@@ -22,14 +24,32 @@ print_r($row);
     </form>
 
     <div class="card-body">
-        <?php
-        $query = "SELECT * FROM Expense INNER JOIN Subcategory ON Expense.SubcategoryId = Subcategory.Id WHERE PeriodId = {$_GET['id']}";
-        $result = $mysqli->query($query);
-        while ($row = $result->fetch_assoc()) {
-            echo '<br>';
-            print_r($row);
-        }
-        ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Subcategoria</th>
+                    <th>$</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $subcategoryRepository = new SubcategoryRepository();
+                foreach ($subcategoryRepository->get($_GET['id']) as $row) {
+                ?>
+                <tr>
+                    <td><?php echo $row['Name']?></td>
+                    <td><?php echo $row['SubcategoryName']?></td>
+                    <td>$ <?php echo $row['Amount']?></td>
+                    <td>
+                        <button class="btn btn-warning text-white">Editar</button>
+                        <button class="btn btn-danger">Borrar</button>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
 </div>
 

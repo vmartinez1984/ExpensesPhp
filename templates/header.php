@@ -20,8 +20,8 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
         <a class="nav-link" href="/expenses/periods">Periodos</a>
-        <a class="nav-link" href="#">Categorias</a>
-        <a class="nav-link" href="">Subcategorias</a>
+        <a class="nav-link" href="/expenses/categories">Categorias</a>
+        <a class="nav-link" href="/expenses/subcategories">Subcategorias</a>
       </div>
     </div>
   </div>
