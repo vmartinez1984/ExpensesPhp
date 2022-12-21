@@ -1,15 +1,11 @@
 <?php
 include '../models/SubcategoryRepository.php';
+include '../config/config.php';
 //print_r($_POST);
 
 $subcategory;
 $subcategoryRepository = new SubcategoryRepository();
 
-$subcategory = [
-    'CategoryId' => $_POST['CategoryId'],
-    'Name' => $_POST['Name'],
-    'Amount' => $_POST['Amount']
-];
-$subcategoryRepository->add($subcategory);
+$subcategoryRepository->add($_POST);
 
-header("Location: /subcategories/index.php");
+header("Location: ".url_base('/subcategories/index.php'));

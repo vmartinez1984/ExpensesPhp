@@ -1,6 +1,7 @@
 <?php
 include ('../templates/header.php');
 include ('../models/CategoryRepository.php');
+include '../config/config.php';
 
 $categoryRepository = new CategoryRepository();
 ?>
@@ -8,7 +9,7 @@ $categoryRepository = new CategoryRepository();
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="save.php">
+            <form method="POST" action="<?php url_base("/subcategories/save.php"); ?>">
                 <select class="form-select" name="CategoryId">
                     <option>Seleccione categoria</option>
                     <?php foreach($categoryRepository->getAll() as $row) { ?>

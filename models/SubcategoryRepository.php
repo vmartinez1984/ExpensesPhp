@@ -1,5 +1,5 @@
 <?php
-include '../models/Connection.php';
+include_once '../models/Connection.php';
 
 class SubcategoryRepository extends Connection
 {
@@ -24,7 +24,9 @@ class SubcategoryRepository extends Connection
     }
 
     public function getAll(){
-        $query = "SELECT Subcategory.*, Category.Name CategoryName FROM Subcategory INNER JOIN Category ON Category.Id = Subcategory.CategoryId  WHERE Subcategory.IsActive = 1";
+        $query = "SELECT Subcategory.*, Category.Name CategoryName FROM Subcategory 
+        INNER JOIN Category ON Category.Id = Subcategory.CategoryId WHERE Subcategory.IsActive = 1
+        ORDER BY Subcategory.Name";
         $result = $this->mysqli->query($query);
         $array = array();         
         while ($row = $result->fetch_assoc()) {

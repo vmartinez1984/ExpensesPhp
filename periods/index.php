@@ -29,7 +29,7 @@ $result = $mysqli->query("SELECT * FROM Period WHERE IsActive = 1 ORDER BY Id DE
                             <td><?php echo $row['DateStart'] ?></td>
                             <td><?php echo $row['DateStop'] ?></td>
                             <td>
-                                <a href="/expenses/periods/details.php?id=<?php echo $row['Id'] ?>" class="btn btn-info text-white">Detalles</a>
+                                <a href="/expenses/periods/details.php?Id=<?php echo $row['Id'] ?>" class="btn btn-info text-white">Detalles</a>
                                 <button class="btn btn-warning text-white">Editar</button>
                                 <button class="btn btn-danger">Borrar</button>
                             </td>
