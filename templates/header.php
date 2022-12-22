@@ -22,6 +22,7 @@
         <a class="nav-link" href="/expenses/periods">Periodos</a>
         <a class="nav-link" href="/expenses/categories">Categorias</a>
         <a class="nav-link" href="/expenses/subcategories">Subcategorias</a>
+        <a class="nav-link" href="../investment">Inversiones</a>
       </div>
     </div>
   </div>

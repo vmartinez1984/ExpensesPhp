@@ -14,6 +14,7 @@ $expenseRepository = new ExpenseRepository();
 //print_r($expenseRepository->get_all($_GET['Id']));
 //print_r($period);
 $total = 0;
+$ingresos = 2;
 ?>
 <br />
 
@@ -78,13 +79,13 @@ $total = 0;
                         <tr>
                             <td><?php echo $row['Name'] ?></td>
                             <td><?php echo $row['SubcategoryName'] ?></td>
-                            <?php if ($row['CategoryId'] == 1) { ?>
-                                <?php $total -= $row['Amount'] ?>
+                            <?php if ($row['CategoryId'] == $ingresos) { ?>
+                                <?php $total += $row['Amount'] ?>
                                 <td>$ <?php echo number_format($row['Amount']) ?></td>
                                 <td></td>
                                 <td>$ <?php echo number_format($total) ?></td>
                             <?php } else { ?>
-                                <?php $total += $row['Amount'] ?>
+                                <?php $total -= $row['Amount'] ?>
                                 <td></td>
                                 <td>$ <?php echo  number_format($row['Amount']) ?></td>
                                 <td>$ <?php echo number_format($total) ?></td>
