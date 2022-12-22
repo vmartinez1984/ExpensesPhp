@@ -1,6 +1,7 @@
 <?php
 include('../config/connection.php');
 include('../templates/header.php');
+include '../config/config.php';
 ?>
 <?php
 $result = $mysqli->query("SELECT * FROM Period WHERE IsActive = 1 ORDER BY Id DESC");
@@ -30,8 +31,8 @@ $result = $mysqli->query("SELECT * FROM Period WHERE IsActive = 1 ORDER BY Id DE
                             <td><?php echo $row['DateStop'] ?></td>
                             <td>
                                 <a href="/expenses/periods/details.php?Id=<?php echo $row['Id'] ?>" class="btn btn-info text-white">Detalles</a>
-                                <button class="btn btn-warning text-white">Editar</button>
-                                <button class="btn btn-danger">Borrar</button>
+                                <a href="<?php url_base("/periods/edit.php?Id=".$row['Id']) ?>" class="btn btn-warning text-white">Editar</a>
+                                <a href="<?php url_base("/periods/delete.php?Id=".$row['Id']) ?>" class="btn btn-danger text-white">borrar</a>
                             </td>
                         </tr>
                     <?php } ?>

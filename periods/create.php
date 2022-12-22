@@ -5,7 +5,7 @@ include('../templates/header.php');
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="save.php">
+            <form method="POST" action="create_post.php">
                 <input type="text" maxlength="20" class="form-control" name="Name" placeholder="Nombre"/>
                 <input type="date" class="form-control" name="DateStart"/>
                 <input type="date" class="form-control" name="DateStop"/>
