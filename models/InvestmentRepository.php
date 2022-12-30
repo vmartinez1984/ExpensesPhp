@@ -18,7 +18,7 @@ class InvestmentRepository extends Connection
         return $array;
     }
 
-    public function get_by($id){
+    public function get_by_id($id){
         $query = "SELECT * FROM Investment WHERE Id = {$id}";
         $result = $this->mysqli->query($query);
 
@@ -33,15 +33,20 @@ class InvestmentRepository extends Connection
         $statement->execute();
     }
 
-    public function update($period){
-        $query = "UPDATE Investment SET Name ='{$period['Name']}', DateStart = '{$period['DateStart']}', DateStop  = '{$period['DateStop']}' WHERE Id = {$period['Id']}";
+    public function update($investment){
+        $query = "UPDATE Investment 
+        SET 
+        Name ='{$investment['Name']}', DateStart = '{$investment['DateStart']}', DateStop = '{$investment['DateStop']}',
+        Interest = {$investment['Interest']}, Amount = {$investment['Amount']}, InstructionId = {$investment['InstructionId']}, 
+        Term = {$investment['InstructionId']}
+        WHERE Id = {$investment['Id']}";
         $statement = $this->mysqli->prepare($query);
 
         $statement->execute();
     }
 
-    public function delete($periodId){
-        $query = "UPDATE Investment SET IsActive = 0 WHERE Id = {$periodId}";
+    public function delete($id){
+        $query = "UPDATE Investment SET IsActive = 0 WHERE Id = {$id}";
         $statement = $this->mysqli->prepare($query);
 
         $statement->execute();

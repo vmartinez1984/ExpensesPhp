@@ -22,6 +22,8 @@ include('../templates/header.php');
                     <option value="1">1</option>
                     <option value="7">7</option>
                     <option value="28">28</option>
+                    <option value="90">90</option>
+                    <option value="180">180</option>
                 </select>
                 <button type="submit" class="btn btn-primary">
                     Guardar

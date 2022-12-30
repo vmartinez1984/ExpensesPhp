@@ -25,6 +25,12 @@ class ExpenseRepository extends Connection
         $statement->bind_param('sidi', $expense['Name'], $expense['SubcategoryId'], $expense['Amount'], $expense['PeriodId']);
         
         $statement->execute();
+        $query = "SELECT LAST_INSERT_ID() Id";
+        $statement = $this->mysqli->prepare($query);
+        $result = $this->mysqli->query($query);
+        $row = $result->fetch_assoc();
+
+        return $row['Id'];
     }
 
     public function get_by_id($expenseId){

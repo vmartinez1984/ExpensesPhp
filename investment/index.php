@@ -5,6 +5,9 @@ include '../models/InvestmentRepository.php';
 
 $repository = new InvestmentRepository();
 $total = 0;
+foreach ($repository->get_all() as $row) {
+    $total += $row['Amount'];
+}
 ?>
 
 <div class="container">
@@ -28,24 +31,28 @@ $total = 0;
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>$ <?php echo number_format($total, 2) ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     <?php foreach ($repository->get_all() as $row) { ?>
                         <tr>
                             <td><?php echo $row['Name'] ?></td>
                             <td><?php echo $row['DateStart'] ?></td>
                             <td><?php echo $row['DateStop'] ?></td>
                             <td><?php echo $row['Interest'] ?>%</td>
-                            <td>$ 
-                                <?php 
-                                    echo number_format($row['Amount'], 2);
-                                    $total += $row['Amount']; 
-                                ?>
-                            </td>
+                            <td>$ <?php echo number_format($row['Amount'], 2)?></td>
                             <td><?php echo $row['InstructionId'] ?></td>
                             <td><?php echo $row['Term'] ?></td>
-                            <td>
-                                <a href="/expenses/periods/details.php?Id=<?php echo $row['Id'] ?>" class="btn btn-info text-white">Detalles</a>
-                                <a href="<?php url_base("/periods/edit.php?Id=" . $row['Id']) ?>" class="btn btn-warning text-white">Editar</a>
-                                <a href="<?php url_base("/periods/delete.php?Id=" . $row['Id']) ?>" class="btn btn-danger text-white">borrar</a>
+                            <td>                                
+                                <a href="edit.php?Id=<?php echo $row['Id'] ?>" class="btn btn-warning text-white">Editar</a>
+                                <a href="delete.php?Id=<?php echo $row['Id'] ?>" class="btn btn-danger text-white">borrar</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -54,7 +61,7 @@ $total = 0;
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>$ <?php echo number_format($total,2) ?></td>
+                        <td>$ <?php echo number_format($total, 2) ?></td>
                         <td></td>
                         <td></td>
                         <td></td>

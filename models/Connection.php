@@ -1,6 +1,4 @@
 <?php
-include('../config/connection.php');
-
 class Connection
 {
     public $mysqli;

@@ -36,6 +36,21 @@ class SubcategoryRepository extends Connection
         return $array;
     }
 
+    public function get_aparts(){
+        $query = "SELECT Subcategory.*, Category.Name CategoryName 
+        FROM Subcategory 
+        INNER JOIN Category ON Category.Id = Subcategory.CategoryId 
+        WHERE Subcategory.IsActive = 1 AND Category.Id = 3
+        ORDER BY Subcategory.Name";
+        $result = $this->mysqli->query($query);
+        $array = array();         
+        while ($row = $result->fetch_assoc()) {
+            array_push($array, $row);
+        }
+        
+        return $array;
+    }
+
     public function getById($subcategoryId){
         $query = "SELECT Subcategory.*, Category.Name CategoryName FROM Subcategory INNER JOIN Category ON Category.Id = Subcategory.CategoryId  WHERE Subcategory.Id = {$subcategoryId}";
         $result = $this->mysqli->query($query);        
