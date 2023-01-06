@@ -1,6 +1,6 @@
 <?php
-include('../config/connection.php');
-include('../templates/header.php');
+include '../config/connection.php';
+include '../templates/header.php';
 include '../config/config.php';
 ?>
 <?php
@@ -8,9 +8,10 @@ $result = $mysqli->query("SELECT * FROM Period WHERE IsActive = 1 ORDER BY Id DE
 ?>
 
 <div class="container">
-    <h1>Lista de periodos</h1>
+    <h1 class="text-info">Lista de periodos</h1>
 
-    <a href="/expenses/periods/create.php">Agregar nuevo</a>
+    <!-- <a href="/expenses/periods/create.php">Agregar nuevo</a> -->
+    <?php require_once 'create.php'?>
     <div class="card">
         <div class="card-head"></div>
         <div class="card-body">

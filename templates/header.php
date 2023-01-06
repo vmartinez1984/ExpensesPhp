@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses</title>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet"/>
     
 </head>
 <body>
@@ -24,6 +25,7 @@
         <a class="nav-link" href="/expenses/categories">Categorias</a>
         <a class="nav-link" href="/expenses/subcategories">Subcategorias</a>
         <a class="nav-link" href="../investment">Inversiones</a>
+        <a class="nav-link" href="../tdcs">Tarjetas de credito</a>
       </div>
     </div>
   </div>

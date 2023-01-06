@@ -1,42 +1,30 @@
 <?php
 include '../templates/header.php';
-include '../models/ApartRepository.php';
-include '../models/SubcategoryRepository.php';
-include '../config/config.php';
+include '../models/TdcRepository.php';
+include '../models/BuyRepository.php';
 
-$subcategoryRepository = new SubcategoryRepository();
-$apartRepository = new ApartRepository();
-$subcategory = 0;
-if(isset($_GET['Subcategory'])){
-    $subcategory = $_GET['Subcategory'];
-}
-$total = 0;
-foreach ($apartRepository->get_all($subcategory) as $row) {
-    $total += $row['Amount'];
-}
+$tdcRepository = new TdcRepository();
+$tdc = $tdcRepository->get_by_id($_GET['Id']);
+$buyRepository = new BuyRepository();
+$total=0;
 ?>
 <br />
 
 <div class="container mt-1">
     <div class="card">
         <div class="card-header">
-            <?php foreach ($subcategoryRepository->get_aparts() as $row) { ?>
-                <a href="index.php?Subcategory=<?php echo $row['Id'] ?>" class="btn btn-info text-white"><?php echo $row['Name'] ?></a>                
-            <?php } ?>
+            <h3 class="text-info"><?php echo $tdc['Name'] ?></h3>
         </div>
         <div class="card-body">
-            <form action="<?php url_base("/aparts/add_post.php") ?>" method="POST">
-                <input type="hidden" value="0" name="ExpenseId" />
+            <form action="../tdcs/create_post.php" method="POST">
+                <input type="hidden" value="<?php echo $tdc['Id'] ?>" name="TdcId" />
                 <div class="row">
                     <div class="col">
-                        <select class="form-select" name="SubcategoryId">
-                            <option>Seleccione</option>
-                            <?php foreach ($subcategoryRepository->get_aparts() as $row) { ?>
-                                <option value="<?php echo $row['Id'] ?>"><?php echo $row['Name'] ?></option>
-                            <?php } ?>
-                        </select>
+                        <input class="form-control" type="text" placeholder="Nombre" name="Name" />
                     </div>
-
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="Meses sin intereses" name="MonthsWhithoutInterest" max="36" min="0" />
+                    </div>
                     <div class="col">
                         <input class="form-control" type="number" placeholder="$" name="Amount" step="0.01" />
                     </div>
@@ -55,8 +43,8 @@ foreach ($apartRepository->get_all($subcategory) as $row) {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Apartado</th>
                         <th>Nombre</th>
+                        <th>MSI</th>
                         <th>$</th>
                         <th>Fecha</th>
                         <th></th>
@@ -64,19 +52,19 @@ foreach ($apartRepository->get_all($subcategory) as $row) {
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Apartado</th>
                         <th>Nombre</th>
+                        <th>MSI</th>
                         <th>$</th>
                         <th>Fecha</th>
                         <th></th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($apartRepository->get_all($subcategory) as $row) { ?>
+                    <?php foreach ($buyRepository->get_all($_GET['Id']) as $row) { ?>
                         <tr>
-                            <td><?php echo $row['SubcategoryName'] ?></td>
                             <td><?php echo $row['Name'] ?></td>
-                            <td>$ <?php echo number_format($row['Amount'], 2) ?></td>
+                            <td><?php echo $row['MonthsWhithoutInterest'] ?></td>
+                            <td><?php echo $row['Amount']; $total += $row['Amount']; ?></td>
                             <td><?php echo $row['DateRegistration'] ?></td>
                             <td>
                                 <a href="../expenses/edit.php?Id=<?php echo $row['Id'] ?>" class="btn btn-warning text-white">Editar</a>
@@ -86,8 +74,9 @@ foreach ($apartRepository->get_all($subcategory) as $row) {
                     <?php } ?>
                     <tr>
                         <td></td>
-                        <td>Total</td>
-                        <td>$ <?php echo number_format($total, 2) ?></td>
+                        <td></td>
+                        <td><?php echo $total ?></td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </tbody>

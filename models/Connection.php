@@ -1,4 +1,7 @@
 <?php
+
+//namespace models;
+
 class Connection
 {
     public $mysqli;
