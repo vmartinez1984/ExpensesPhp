@@ -1,21 +1,47 @@
 <?php
-include '../models/ExpenseRepository.php';
-include '../models/SubcategoryRepository.php';
-include '../models/ApartRepository.php';
 
-print_r($_POST);
-$repository = new ExpenseRepository();
-$expenseId = $repository->add($_POST);
-$subcategoryRepository = new SubcategoryRepository();
-$subcategory = $subcategoryRepository->getById($_POST['SubcategoryId']);
-//print_r($subcategory);
-$apartados = 3;
-if($subcategory['CategoryId'] == $apartados){
-    $apartRepository = new ApartRepository();
-    $apart = [
-        'ExpenseId' => $expenseId,
-        'Amount' => $_POST['Amount']        
-    ];
-    $apartRepository->add($apart);
-}
-header("Location: ../periods/details.php?Id=".$_POST['PeriodId']);
+?>
+<form action="<?php url_base("/expenses/create_post.php") ?>" method="POST">
+    <input type="hidden" value="<?php echo $period['Id'] ?>" name="PeriodId" />
+    <div class="row">
+        <div class="col">
+            <select class="form-select" name="SubcategoryId" id="SubcategoryId" onchange="setAmount()">
+                <option class="text-info">Seleccione</option>
+                <?php foreach ($subcategoryRepository->getAll() as $row) { ?>
+                    <option value="<?php echo $row['Id'] ?>"><?php echo $row['Name'] ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Nombre" name="Name" />
+        </div>
+        <div class="col">
+            <input class="form-control" type="number" placeholder="$" name="Amount" id="Amount" step="0.01" />
+        </div>
+        <div class="col">
+            <div>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    var subcategories = []
+    <?php foreach ($subcategoryRepository->getAll() as $row) { ?>
+        subcategories.push({
+            id: <?php echo $row['Id'] ?>,
+            name: "<?php echo $row['Name'] ?>",
+            amount: <?php echo $row['Amount'] ?>
+        })
+    <?php } ?>
+
+    function setAmount() {
+        var value = document.getElementById('SubcategoryId').value;
+        //console.log(value)
+        subcategories.forEach(item => {
+            if (value == item.id) {
+                document.getElementById('Amount').value = item.amount;
+            }
+        });
+    }
+</script>

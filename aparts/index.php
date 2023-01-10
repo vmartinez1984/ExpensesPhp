@@ -58,8 +58,7 @@ foreach ($apartRepository->get_all($subcategory) as $row) {
                         <th>Apartado</th>
                         <th>Nombre</th>
                         <th>$</th>
-                        <th>Fecha</th>
-                        <th></th>
+                        <th>Fecha</th>                        
                     </tr>
                 </thead>
                 <tfoot>
@@ -67,24 +66,19 @@ foreach ($apartRepository->get_all($subcategory) as $row) {
                         <th>Apartado</th>
                         <th>Nombre</th>
                         <th>$</th>
-                        <th>Fecha</th>
-                        <th></th>
+                        <th>Fecha</th>                        
                     </tr>
                 </tfoot>
                 <tbody>
                     <?php foreach ($apartRepository->get_all($subcategory) as $row) { ?>
-                        <tr>
+                        <tr class="<?php if($row['Amount']<0) echo 'text-danger' ?>">
                             <td><?php echo $row['SubcategoryName'] ?></td>
                             <td><?php echo $row['Name'] ?></td>
                             <td>$ <?php echo number_format($row['Amount'], 2) ?></td>
-                            <td><?php echo $row['DateRegistration'] ?></td>
-                            <td>
-                                <a href="../expenses/edit.php?Id=<?php echo $row['Id'] ?>" class="btn btn-warning text-white">Editar</a>
-                                <button class="btn btn-danger">Borrar</button>
-                            </td>
+                            <td><?php echo $row['DateRegistration'] ?></td>                           
                         </tr>
                     <?php } ?>
-                    <tr>
+                    <tr class="text-info">
                         <td></td>
                         <td>Total</td>
                         <td>$ <?php echo number_format($total, 2) ?></td>

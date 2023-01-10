@@ -9,7 +9,7 @@ class ExpenseRepository extends Connection
         $query = "SELECT Expense.*, Subcategory.Name SubcategoryName, Category.Id CategoryId FROM Expense 
         INNER JOIN Subcategory ON Expense.SubcategoryId = Subcategory.Id 
         INNER JOIN Category ON Category.Id = Subcategory.CategoryId
-        WHERE PeriodId = {$periodId}";
+        WHERE PeriodId = {$periodId} AND Expense.IsActive = 1";
         $result = $this->mysqli->query($query);
         $array = array();
 
@@ -34,7 +34,10 @@ class ExpenseRepository extends Connection
     }
 
     public function get_by_id($expenseId){
-        $query = "SELECT * FROM Expense WHERE Id = {$expenseId}";
+        $query = "SELECT Expense.*, Subcategory.Name SubcategoryName, Category.Id CategoryId FROM Expense 
+        INNER JOIN Subcategory ON Expense.SubcategoryId = Subcategory.Id 
+        INNER JOIN Category ON Category.Id = Subcategory.CategoryId
+        WHERE Expense.Id = {$expenseId}";
 
         $result = $this->mysqli->query($query);
 

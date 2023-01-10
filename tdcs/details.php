@@ -1,12 +1,13 @@
 <?php
 include '../templates/header.php';
-include '../models/TdcRepository.php';
-include '../models/BuyRepository.php';
+include '../businessLayer/ExpensesBl.php';
 
-$tdcRepository = new TdcRepository();
-$tdc = $tdcRepository->get_by_id($_GET['Id']);
-$buyRepository = new BuyRepository();
-$total=0;
+//print_r($_GET);
+$bl = new ExpensesBl();
+$tdc = $bl->tdc->get_by_id($_GET['Id']);
+$buys = $bl->buy->get_all($_GET['Id'], $_GET['msi']);
+
+$total = 0;
 ?>
 <br />
 
@@ -14,6 +15,11 @@ $total=0;
     <div class="card">
         <div class="card-header">
             <h3 class="text-info"><?php echo $tdc['Name'] ?></h3>
+            <?php if ($_GET['msi'] == 'false') { ?>
+                <a href="details.php?Id=<?php echo $tdc['Id'] ?>&msi=true">Meses sin intereses</a>
+            <?php } else { ?>
+                <a href="details.php?Id=<?php echo $tdc['Id'] ?>&msi=false">Todos</a>
+            <?php } ?>
         </div>
         <div class="card-body">
             <form action="../tdcs/create_post.php" method="POST">
@@ -60,11 +66,12 @@ $total=0;
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php foreach ($buyRepository->get_all($_GET['Id']) as $row) { ?>
+                    <?php foreach ($buys as $row) { ?>
                         <tr>
                             <td><?php echo $row['Name'] ?></td>
                             <td><?php echo $row['MonthsWhithoutInterest'] ?></td>
-                            <td><?php echo $row['Amount']; $total += $row['Amount']; ?></td>
+                            <td><?php echo $row['Amount'];
+                                $total += $row['Amount']; ?></td>
                             <td><?php echo $row['DateRegistration'] ?></td>
                             <td>
                                 <a href="../expenses/edit.php?Id=<?php echo $row['Id'] ?>" class="btn btn-warning text-white">Editar</a>

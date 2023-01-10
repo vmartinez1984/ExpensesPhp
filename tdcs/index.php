@@ -1,13 +1,13 @@
 <?php
 include('../templates/header.php');
-include_once '../models/TdcRepository.php';
+include_once '../businessLayer/ExpensesBl.php';
 
-$repository = new TdcRepository();
+$expensesBl = new ExpensesBl();
 ?>
 <div class="container">
     <h1>Lista de tarjetas de crédito</h1>
 
-    <a href="../tdcs/create.php">Agregar nuevo</a>
+    <a href="../tdcs/create_post.php">Agregar nuevo</a>
     <br /><br />
     <div class="card">
         <div class="card-head"></div>
@@ -17,7 +17,7 @@ $repository = new TdcRepository();
                     <tr>
                         <th>Nombre</th>
                         <th>Banco</th>
-                        <th>Cantidad</th>
+                        <!-- <th>Cantidad</th> -->
                         <th>Dia de corte</th>
                         <th>Fecha de pago</th>
                         <th>Interes</th>
@@ -25,7 +25,8 @@ $repository = new TdcRepository();
                     </tr>
                 </thead>
                 <tbody>                  
-                    <?php foreach ($repository->get_all() as $row) { ?>
+                    <?php foreach ($expensesBl->tdc->get_all() as $row) { ?>
+                        <?php //var_dump($row) ?>
                         <tr>
                             <td><?php echo $row['Name'] ?></td>
                             <td><?php echo $row['Bank'] ?></td>
@@ -33,7 +34,7 @@ $repository = new TdcRepository();
                             <td><?php echo $row['DatePay'] ?></td>
                             <td><?php echo $row['Interest'] ?></td>
                             <td>
-                            <a class="btn btn-warning text-white" href="details.php?Id=<?php echo $row['Id'] ?>">Detalles</a>
+                            <a class="btn btn-warning text-white" href="details.php?Id=<?php echo $row['Id'] ?>&msi=false">Detalles</a>
                                 <a class="btn btn-warning text-white" href="edit.php?Id=<?php echo $row['Id'] ?>">Editar</a>
                                 <a class="btn btn-danger" href="delete.php?Id=<?php echo $row['Id'] ?>">Borrar</a>
                             </td>

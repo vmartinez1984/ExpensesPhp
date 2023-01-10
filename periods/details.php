@@ -24,30 +24,7 @@ $ingresos = 2;
             <h3 class="text-info"><?php echo $period['Name'] ?></h3>
         </div>
         <div class="card-body">
-            <form action="<?php url_base("/expenses/create.php") ?>" method="POST">
-                <input type="hidden" value="<?php echo $period['Id'] ?>" name="PeriodId" />
-                <div class="row">
-                    <div class="col">
-                        <select class="form-select" name="SubcategoryId">
-                            <option>Seleccione</option>
-                            <?php foreach ($subcategoryRepository->getAll() as $row) { ?>
-                                <option value="<?php echo $row['Id'] ?>"><?php echo $row['Name'] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input class="form-control" type="text" placeholder="Nombre" name="Name" />
-                    </div>
-                    <div class="col">
-                        <input class="form-control" type="number" placeholder="$" name="Amount" step="0.01" />
-                    </div>
-                    <div class="col">
-                        <div>
-                            <button class="btn btn-primary" type="submit">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <?php include '../expenses/create.php' ?>
         </div>
     </div>
 
@@ -92,7 +69,7 @@ $ingresos = 2;
                             <?php } ?>
                             <td>
                                 <a href="../expenses/edit.php?Id=<?php echo $row['Id'] ?>" class="btn btn-warning text-white">Editar</a>
-                                <button class="btn btn-danger">Borrar</button>
+                                <a href="../expenses/delete.php?Id=<?php echo $row['Id'] ?>" class="btn btn-danger text-white">Borrar</a>
                             </td>
                         </tr>
                     <?php } ?>
